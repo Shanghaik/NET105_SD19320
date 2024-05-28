@@ -5,7 +5,7 @@ namespace AppAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentsController : ControllerBase
     {
         // 2 phương thức
         // Lấy ra danh sách các student
