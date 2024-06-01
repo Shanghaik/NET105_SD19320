@@ -27,22 +27,27 @@ namespace CRUDWithAPI.Services
             if (response.IsSuccessStatusCode) return true;
             return false;
         }
-
         public bool DeleteStudent(string id)
         {
-            throw new NotImplementedException();
+            string requestURL = @$"https://localhost:7294/api/Student/delete-student?id={id}";
+            var response = client.DeleteAsync(requestURL).Result;
+            if (response.IsSuccessStatusCode) return true;
+            return false;
         }
-
-        
-
         public Student GetById(string id)
         {
-            throw new NotImplementedException();
+            string requestURL = @$"https://localhost:7294/api/Student/get-by-id?id={id}";
+            var response = client.GetStringAsync(requestURL).Result;
+            Student student = JsonConvert.DeserializeObject<Student>(response);
+            return student;
         }
 
         public bool UpdateStudent(Student student)
         {
-            throw new NotImplementedException();
+            string requestURL = @"https://localhost:7294/api/Student/update-student";
+            var response = client.PutAsJsonAsync(requestURL, student).Result;
+            if (response.IsSuccessStatusCode) return true;
+            return false;
         }
     }
 }

@@ -1,3 +1,6 @@
+﻿using CRUDWithAPI.IServices;
+using CRUDWithAPI.Services;
+
 namespace CRUDWithAPI
 {
     public class Program
@@ -8,7 +11,10 @@ namespace CRUDWithAPI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            // Khai báo DI (Dependency Injection) 
+            builder.Services.AddTransient<IStudentServices, StudentServices>();
+            // Transion (Ngắn nhất đỡ tốn tài nguyên nhất), Scope (Nhì - sống trong phạm vi resquest,
+            // Singleton - dài nhất, sống từ khi được tạo ra đến hết vòng đời của project)
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

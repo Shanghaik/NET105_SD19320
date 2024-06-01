@@ -1,4 +1,5 @@
-﻿using CRUDWithAPI.Models;
+﻿using CRUDWithAPI.IServices;
+using CRUDWithAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -6,22 +7,20 @@ namespace CRUDWithAPI.Controllers
 {
     public class StudentController : Controller
     {
-        HttpClient client = new HttpClient();
+
+        IStudentServices _services;
+        public StudentController(IStudentServices services)
+        {
+            _services = services;
+        }
         public IActionResult GetAll()
         {
-            // Lấy requestURL
-            string requestURL = @"https://localhost:7294/api/Student/get-all-student";
-            // Lấy response
-            var response = client.GetStringAsync(requestURL).Result;
-            List<Student> students = JsonConvert.DeserializeObject<List<Student>>(response);
+            var students = _services.GetAll();
             return View(students);
         }
         public IActionResult Details(string id)
         {
-            string requestURL = $@"https://localhost:7294/api/Student/get-by-id?id={id}";
-            // Lấy response
-            var response = client.GetStringAsync(requestURL).Result;
-            Student student = JsonConvert.DeserializeObject<Student>(response);
+            var student = _services.GetById(id);
             return View(student);
         }
         [HttpGet]
@@ -39,10 +38,7 @@ namespace CRUDWithAPI.Controllers
         [HttpPost]
         public IActionResult Create(Student student)
         {
-            string requestURL = "https://localhost:7294/api/Student/create-student";
-            // Lấy response
-            var response = client.PostAsJsonAsync(requestURL, student).Result;
-            // Vid phương thức PostAsJsonAsync yêu cầu 2 tham số là requestURL và 1 chuỗi Json và nó tự ép
+            _services.CreateStudent(student);
             return RedirectToAction("GetAll");
         }
     }
