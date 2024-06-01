@@ -41,9 +41,8 @@ namespace CRUDWithAPI.Controllers
         {
             string requestURL = "https://localhost:7294/api/Student/create-student";
             // Lấy response
-            // var studentContent = JsonConvert.SerializeObject(student);  
             var response = client.PostAsJsonAsync(requestURL, student).Result;
-            // Vid phương thức PostAsJsonAsync yêu cầu 2 tham số là requestURL và 1 chuỗi Json nên phải ép kiểu
+            // Vid phương thức PostAsJsonAsync yêu cầu 2 tham số là requestURL và 1 chuỗi Json và nó tự ép
             return RedirectToAction("GetAll");
         }
     }
