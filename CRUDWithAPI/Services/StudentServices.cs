@@ -29,7 +29,7 @@ namespace CRUDWithAPI.Services
         }
         public bool DeleteStudent(string id)
         {
-            string requestURL = @$"https://localhost:7294/api/Student/delete-student?id={id}";
+            string requestURL = @$"https://localhost:7294/api/Student/delete-student-by-id?id={id}";
             var response = client.DeleteAsync(requestURL).Result;
             if (response.IsSuccessStatusCode) return true;
             return false;

@@ -41,5 +41,27 @@ namespace CRUDWithAPI.Controllers
             _services.CreateStudent(student);
             return RedirectToAction("GetAll");
         }
+        public IActionResult Edit(string id)
+        {
+            var editItem = _services.GetById(id);
+            return View(editItem);
+        }
+        [HttpPost]
+        public IActionResult Edit(Student student)
+        {
+            var editItem = _services.UpdateStudent(student);
+            return RedirectToAction("GetAll");
+        }
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            _services.DeleteStudent(id);
+            return RedirectToAction("GetAll");
+        }
+        // Lưu ý:
+        // 1. Bên API sử dụng phương thức nào thì call qua phương thức đó
+        // VD Bên API (PUT) => Call = PutAsJsonAsync
+        // 2. Razor view chỉ support 2 phương thức HTTP là GET và Post nên bên
+        // Controller (MVC) Chúng ta chỉ đánh dấu các acrion là GET và POST
     }
 }
